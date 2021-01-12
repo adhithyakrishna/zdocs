@@ -17,6 +17,10 @@
     @include flex-grow(1);
     @include align-items(flex-start);
 
+    > ul {
+      padding: 0px;
+    }
+
     &--wrapper {
       @include flexbox();
       @media only screen and (max-width: 600px) {
@@ -32,9 +36,10 @@
     }
 
     &--link {
+      font-weight: bold;
       display: block;
       text-align: left;
-      padding: 0.15rem 0.35rem;
+      padding: 0.25rem 0;
     }
   }
 
