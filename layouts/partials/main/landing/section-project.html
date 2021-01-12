@@ -46,7 +46,7 @@
             {{ if .button }}
               {{ with .button }}
               <div class="section__card--button-wrapper">
-                <a href="{{ .link }}" class="section__card--item" target="{{ .target }}" rel="{{ if eq .target "_blank" }}noreferrer{{ end }}">
+                <a href="{{ .link }}" target="{{ .target }}" rel="{{ if eq .target "_blank" }}noreferrer{{ end }}">
                   <button class="section__btn section__btn--{{ .size }}" style="background-color: {{ .bgcolor }}; color: {{ .color }};">{{ .name }}</button>
                 </a>
               </div>

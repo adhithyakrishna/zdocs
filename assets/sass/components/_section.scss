@@ -100,6 +100,14 @@
       min-height: 120px;
     }
 
+    @media only screen and (max-width: 600px) {
+      &--button {
+        &-wrapper {
+          padding : 0px;
+        }
+      }
+    }
+
     @media only screen and (max-width: 960px) {
       &--item {
         width: 100%;
@@ -123,10 +131,16 @@
         width: 100%;
 
         &-wrapper {
-          min-width: 112px;
-          max-width: 112px;
-          margin-right: 1rem;
+          max-width: 30%;
+          min-width: 30%;
+          // margin-right: 1rem;
         }
+      }
+
+      &--submain {
+        max-width: 70%;
+        min-width: 70%;
+        padding: 20px;
       }
 
       &--content {
@@ -185,6 +199,7 @@
       @include flex-direction(column);
 
       &--img {
+        display: none;
         &-wrapper {
           &[data-position="left"] {
             margin: 0 2rem;
