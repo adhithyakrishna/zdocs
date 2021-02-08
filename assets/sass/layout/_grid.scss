@@ -34,13 +34,13 @@
 .divider {
     display: grid;
     height: 100%;
-    grid-template-columns: minmax(200px, 240px) minmax(350px, 769px) minmax(240px, 320px);
+    grid-template-columns: minmax(200px, 240px) minmax(350px, 970px) minmax(240px, 320px);
     grid-template-rows: auto;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 
     @include justify-content(center);
-    @media only screen and (max-width: 769px) {
+    @media only screen and (max-width: 970px) {
         grid-template-columns: minmax(0, $grid-side-width) minmax(0, $grid-body-width) minmax(0, $grid-side-width);
     }
 }
@@ -61,7 +61,7 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 
-    @media only screen and (max-width: 769px) {
+    @media only screen and (max-width: 970px) {
         grid-template-columns: minmax(200px, 1fr);
     }
 }

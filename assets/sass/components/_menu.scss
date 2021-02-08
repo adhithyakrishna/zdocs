@@ -169,6 +169,8 @@
 
       @include truncate(170px);
 
+      white-space: normal;
+      
       &.active {
         font-weight: bold;
       }
