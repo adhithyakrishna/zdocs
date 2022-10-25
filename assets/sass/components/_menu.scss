@@ -116,9 +116,10 @@
         }
       }
 
-      & > span {
-        @include truncate(150px);
-      }
+      // Remove truncating text
+      // & > span {
+      //   @include truncate(150px);
+      // }
     }
 
     &--icon {
