@@ -38,6 +38,7 @@
     var toggleMenuElem = document.getElementById("toggle-menu");
     var tocBodyElem = document.querySelector('.toc__body');
     var tocLabelElem = document.querySelector('.toc__label');
+    var listMenuElem = document.getElementById('list-menu');
     var listMainElem = document.getElementById('list-main');
     var listSideElem = document.getElementById('list-side');
     var singleMenuElem = document.getElementById('single-menu');
@@ -52,9 +53,14 @@
           if (tocLabelElem) {
             fadeIn(tocLabelElem, 200);
           }
-          if (listMainElem && listSideElem) {
+          if (listMainElem && listSideElem && (listMenuElem || singleMenuElem)) {
             listMainElem.className = 'm';
             listSideElem.className = 'r';
+            if(listMenuElem) {
+            listMenuElem.className = 'l';
+            } else if(singleMenuElem) {
+            singleMenuElem.className = 'l';
+            }
           }
 
           sliderIcons && sliderIcons.forEach(function (elem) {
@@ -72,9 +78,13 @@
           if (tocLabelElem) {
             fadeOut(tocLabelElem, 200);
           }
-          if (listMainElem && listSideElem) {
-            listMainElem.className = 'mr';
-            listSideElem.className = 'hide';
+          if (listMainElem && listSideElem && (listMenuElem || singleMenuElem)) {
+            listMainElem.className = 'lmr';
+            if(listMenuElem) {
+            listMenuElem.className = 'hide';
+            } else if(singleMenuElem) {
+            singleMenuElem.className = 'hide';
+            }
           }
 
           sliderIcons && sliderIcons.forEach(function (elem) {
