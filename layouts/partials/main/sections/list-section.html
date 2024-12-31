@@ -1,13 +1,11 @@
 {{ $.context.Content }}
 <div class="list-section">
-  {{ range .section_to_display }}
-    <div class="list-section__item">
-      <a href="{{ .Permalink }}" class="list-section__item--link">
-        {{ .Title }}
-      </a>
-      <div class="list-section__item--desc">
-        {{ .Description }}
-      </div>
-    </div>
-  {{ end }}
+  {{ range $index, $element := .section_to_display }}
+  <div class="list-section__item">
+    <a href="{{ $element.Permalink }}" class="list-section__item--link">
+      {{ $index | add 1 }}. {{ $element.Title }}
+    </a>
+    <div class="list-section__item--desc">{{ $element.Description }}</div>
   </div>
+  {{ end }}
+</div>

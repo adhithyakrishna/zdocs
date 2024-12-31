@@ -8,8 +8,10 @@
   </h6>
   <ul>
     {{ $root := . }}
+    {{ $index := 0 }}
     {{ range (.Site.GetPage "section" .Type).Pages }}
-      {{ template "render-menu" (dict "ctx" . "root" $root "depth" 0)}}
+      {{ template "render-menu" (dict "ctx" . "root" $root "depth" 0 "index" $index)}}
+      {{ $index = add $index 1 }}
     {{ end }}
   </ul>
 </div>
@@ -19,6 +21,7 @@
   {{ $ctx := .ctx }}
   {{ $depth := .depth }}
   {{ $currentURL := $root.Permalink }}
+  {{ $index := .index }}
   
   {{ $sectionName1 := index (last 1 (split (delimit (split $ctx.Permalink "/") "," "") ",")) 0 }}
   {{ $sectionName2 := index (last 2 (split (delimit (split $currentURL "/") "," "") ",")) 0 }}
@@ -30,7 +33,7 @@
   {{ if $ctx.Params.Collapsible }}
   <li class="menu__title--collapse {{ if $active }}active{{ end }}" data-depth="{{ $depth }}">
     <span class="menu__title--collapse-text">
-      {{ $ctx.Title }}
+      {{ $ctx.Title}}
     </span>
     <span
       class="menu__title--icon {{ if $active }}{{ if eq ($root.Param "languagedir") "rtl" }}downrtl{{ else }}down{{ end }}{{ else }}right{{ end }}">

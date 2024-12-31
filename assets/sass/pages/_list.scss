@@ -1,17 +1,18 @@
 #list-main {
   position: relative;
-  
+  padding: 0 1rem;
+
   @include flexbox();
   @include flex-direction(column);
   @include themify($themes) {
     background-color: themed('body-background-color');
 
-    &[data-dir="ltr"] {
+    &[data-dir='ltr'] {
       border-right: 1px solid themed('border-line-color');
       border-left: 1px solid themed('border-line-color');
     }
 
-    &[data-dir="rtl"] {
+    &[data-dir='rtl'] {
       border-left: 1px solid themed('border-line-color');
       border-right: 1px solid themed('border-line-color');
     }
