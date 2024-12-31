@@ -1,20 +1,25 @@
-{{ if .Site.Params.custom_js }} {{ range .Site.Params.custom_js }} {{
-$custom_template := resources.Get . }} {{ if $custom_template }} {{ $custom_js
-:= $custom_template | resources.Minify | resources.Fingerprint }}
-<script defer src="{{ $custom_js.RelPermalink }}"></script>
-{{ end }} {{ end }} {{ end }} {{ if $.Param "enableSearch" }} {{ $fuse :=
-resources.Get "js/fuse.min.js" | resources.Fingerprint }}
-<script defer src="{{ $fuse.RelPermalink }}"></script>
-{{ end }} {{ $enquire := resources.Get "js/enquire.min.js" |
-resources.Fingerprint }}
+{{ if .Site.Params.custom_js }}
+{{ range .Site.Params.custom_js }}
+  {{ $custom_template := resources.Get . }}
+  {{ if $custom_template }}
+    {{ $custom_js := $custom_template | resources.Minify | resources.Fingerprint }}
+    <script defer src="{{ $custom_js.RelPermalink }}"></script>
+  {{ end }}
+{{ end }}
+{{ end }}
+
+{{ if $.Param "enableSearch" }}
+  {{ $fuse := resources.Get "js/fuse.min.js" | resources.Fingerprint }}
+  <script defer src="{{ $fuse.RelPermalink }}"></script>
+{{ end }}
+
+{{ $enquire := resources.Get "js/enquire.min.js" | resources.Fingerprint }}
 <script src="{{ $enquire.RelPermalink }}"></script>
 {{ $lazysizes := resources.Get "js/lazysizes.min.js" | resources.Fingerprint }}
 <script defer src="{{ $lazysizes.RelPermalink }}"></script>
-{{ $getParents := resources.Get "js/helper/getParents.js" | resources.Minify |
-resources.Fingerprint }}
+{{ $getParents := resources.Get "js/helper/getParents.js" | resources.Minify | resources.Fingerprint }}
 <script defer src="{{ $getParents.RelPermalink }}"></script>
-{{ $fadeinout := resources.Get "js/helper/fadeinout.js" | resources.Minify |
-resources.Fingerprint }}
+{{ $fadeinout := resources.Get "js/helper/fadeinout.js" | resources.Minify | resources.Fingerprint }}
 <script defer src="{{ $fadeinout.RelPermalink }}"></script>
 
 <script>
@@ -30,7 +35,6 @@ resources.Fingerprint }}
 
     // ==================== toc visibility ========================
     var toggleSidebarElem = document.getElementById("toggle-sidebar");
-    var listMenuElem = document.getElementById('list-menu');
     var toggleMenuElem = document.getElementById("toggle-menu");
     var tocBodyElem = document.querySelector('.toc__body');
     var tocLabelElem = document.querySelector('.toc__label');
@@ -48,14 +52,9 @@ resources.Fingerprint }}
           if (tocLabelElem) {
             fadeIn(tocLabelElem, 200);
           }
-          if (listMainElem && listSideElem && (listMenuElem || singleMenuElem)) {
+          if (listMainElem && listSideElem) {
             listMainElem.className = 'm';
             listSideElem.className = 'r';
-            if(listMenuElem) {
-            listMenuElem.className = 'l';
-            } else if(singleMenuElem) {
-            singleMenuElem.className = 'l';
-            }
           }
 
           sliderIcons && sliderIcons.forEach(function (elem) {
@@ -73,14 +72,9 @@ resources.Fingerprint }}
           if (tocLabelElem) {
             fadeOut(tocLabelElem, 200);
           }
-          if (listMainElem && listSideElem && (listMenuElem || singleMenuElem)) {
-            listMainElem.className = 'lmr';
+          if (listMainElem && listSideElem) {
+            listMainElem.className = 'mr';
             listSideElem.className = 'hide';
-            if(listMenuElem) {
-            listMenuElem.className = 'hide';
-            } else if(singleMenuElem) {
-            singleMenuElem.className = 'hide';
-            }
           }
 
           sliderIcons && sliderIcons.forEach(function (elem) {
@@ -131,7 +125,7 @@ resources.Fingerprint }}
     var navCollapseBtn = document.getElementById('navCollapseBtn');
     navCollapseBtn ? navCollapseBtn.addEventListener('click', function(e) {
       var navCollapse = document.querySelector('.navbar__collapse');
-
+      
       if (navCollapse) {
         var dataOpen = navCollapse.getAttribute('data-open');
 
@@ -169,7 +163,7 @@ resources.Fingerprint }}
 
 
     // ============================ tab ============================
-    document.querySelectorAll('.tab') ?
+    document.querySelectorAll('.tab') ? 
     document.querySelectorAll('.tab').forEach(function(elem, idx) {
       var containerId = elem.getAttribute('id');
       var containerElem = elem;
@@ -198,7 +192,7 @@ resources.Fingerprint }}
 
 
     // ========================== codetab ==========================
-    document.querySelectorAll('.codetab') ?
+    document.querySelectorAll('.codetab') ? 
     document.querySelectorAll('.codetab').forEach(function(elem, idx) {
       var containerId = elem.getAttribute('id');
       var containerElem = elem;
@@ -225,7 +219,7 @@ resources.Fingerprint }}
     }) : null;
     // =============================================================
 
-
+    
     // ======================= toggle theme =======================
     {{ $enableDarkMode := ($.Param "enableDarkMode") }}
     var enableDarkMode = JSON.parse({{ $enableDarkMode | jsonify }});
@@ -237,7 +231,7 @@ resources.Fingerprint }}
       root.className = 'theme__light';
       localStorage.setItem('theme', 'light');
     }
-
+    
     if (toggleToDarkBtn) {
       toggleToDarkBtn.onclick = function (e) {
         root.className = 'theme__dark';
@@ -259,10 +253,10 @@ resources.Fingerprint }}
     // =================== section menu collapse ==================
     document.querySelectorAll('.menu__list').forEach(function(elem) {
       if (elem.classList.contains('active')) {
-        elem.style.maxHeight = elem.scrollHeight + "px";
+        elem.style.maxHeight = elem.scrollHeight + "px"; 
       }
     });
-
+    
     document.querySelectorAll('.menu__title--collapse').forEach(function(elem) {
       elem.addEventListener('click', function (e) {
         var content = this.nextElementSibling;
@@ -281,7 +275,7 @@ resources.Fingerprint }}
           content.style.maxHeight = null;
           content.classList.remove('active');
           menuTitleIcon.classList.add('right');
-
+          
           if (languagedir === 'rtl') {
             menuTitleIcon.classList.remove('downrtl');
           } else {
@@ -291,7 +285,7 @@ resources.Fingerprint }}
           content.style.maxHeight = content.scrollHeight + "px";
           content.classList.add('active');
           menuTitleIcon.classList.remove('right');
-
+          
           if (languagedir === 'rtl') {
             menuTitleIcon.classList.add('downrtl');
           } else {
@@ -330,7 +324,7 @@ resources.Fingerprint }}
         drawer.style.left = '-100%';
       }
 
-
+      
       setTimeout(function () {
         if (languagedir === 'rtl') {
           modal.style.right = '-100%';
@@ -396,7 +390,7 @@ resources.Fingerprint }}
     window.onscroll = function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop) { // scroll down
-        singleContentsElem ?
+        singleContentsElem ? 
         singleContentsElem.querySelectorAll(tocLevels.toString()).forEach(function(elem) {
           if (document.documentElement.scrollTop >= elem.offsetTop) {
             if (tableOfContentsElem) {
@@ -404,14 +398,14 @@ resources.Fingerprint }}
               tocElem.querySelectorAll('a').forEach(function (elem) {
                 elem.classList.remove('active');
               });
-              tocElem.querySelector('a[href="#' + id + '"]') ?
+              tocElem.querySelector('a[href="#' + id + '"]') ? 
               tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
             }
           }
         }) : null;
         setNavbarBG(st);
       } else { // scroll up
-        singleContentsElem ?
+        singleContentsElem ? 
         singleContentsElem.querySelectorAll(tocLevels.toString()).forEach(function(elem) {
           if (document.documentElement.scrollTop >= elem.offsetTop) {
             if (tableOfContentsElem) {
@@ -419,7 +413,7 @@ resources.Fingerprint }}
               tocElem.querySelectorAll('a').forEach(function (elem) {
                 elem.classList.remove('active');
               });
-              tocElem.querySelector('a[href="#' + id + '"]') ?
+              tocElem.querySelector('a[href="#' + id + '"]') ? 
               tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
             }
           }
@@ -445,7 +439,7 @@ resources.Fingerprint }}
       mobileSearchClassElem.style.display = 'none';
     }
 
-    mobileSearchBtnElem ?
+    mobileSearchBtnElem ? 
     mobileSearchBtnElem.addEventListener('click', function () {
       if (mobileSearchContainer) {
         mobileSearchContainer.style.display = 'block';
@@ -460,7 +454,7 @@ resources.Fingerprint }}
       }
     }) : null;
 
-    mobileSearchCloseBtnElem ?
+    mobileSearchCloseBtnElem ? 
     mobileSearchCloseBtnElem.addEventListener('click', function() {
       if (mobileSearchContainer) {
         mobileSearchContainer.style.display = 'none';
@@ -469,7 +463,7 @@ resources.Fingerprint }}
       if (mobileSearchInputElem) {
         mobileSearchInputElem.value = '';
       }
-
+      
       if (mobileSearchResultsElem) {
         while (mobileSearchResultsElem.firstChild) {
           mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
@@ -481,13 +475,13 @@ resources.Fingerprint }}
       }
     }) : null;
 
-    mobileSearchInputElem ?
+    mobileSearchInputElem ? 
     mobileSearchInputElem.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         if (mobileSearchContainer) {
           mobileSearchContainer.style.display = 'none';
         }
-
+        
         if (mobileSearchInputElem) {
           mobileSearchInputElem.value = '';
         }
@@ -510,9 +504,9 @@ resources.Fingerprint }}
     var rootEleme = document.getElementById('root');
     var selectThemeElem = document.querySelectorAll('.select-theme');
     var selectThemeItemElem = document.querySelectorAll('.select-theme__item');
-
+    
     if (localTheme) {
-      selectThemeItemElem ?
+      selectThemeItemElem ? 
       selectThemeItemElem.forEach(function (elem) {
         if (elem.text.trim() === localTheme) {
           elem.classList.add('is-active');
@@ -522,7 +516,7 @@ resources.Fingerprint }}
       }) : null;
     }
 
-    selectThemeItemElem ?
+    selectThemeItemElem ? 
     selectThemeItemElem.forEach(function (v, i) {
       v.addEventListener('click', function (e) {
         var selectedThemeVariant = e.target.text.trim();
@@ -574,7 +568,7 @@ resources.Fingerprint }}
     var searchResults = null;
     var searchMenu = null;
     var searchText = null;
-
+    
     {{ $enableSearchHighlight := ($.Param "enableSearchHighlight") }}
     var enableSearchHighlight = JSON.parse({{ $enableSearchHighlight | jsonify }});
     {{ $enableSearch := ($.Param "enableSearch") }}
@@ -607,11 +601,11 @@ resources.Fingerprint }}
         xhr.send();
       })();
     }
-
+    
     function makeLi(ulElem, obj) {
       var li = document.createElement('li');
       li.className = 'search-result__item';
-
+      
       var a = document.createElement('a');
       a.innerHTML = obj.title;
       a.setAttribute('class', 'search-result__item--title');
@@ -624,7 +618,7 @@ resources.Fingerprint }}
       } else if (obj.content) {
         descDiv.innerHTML = obj.content.substring(0, 80);
       }
-
+      
       li.appendChild(a);
       li.appendChild(descDiv);
       ulElem.appendChild(li);
@@ -648,7 +642,7 @@ resources.Fingerprint }}
             a.setAttribute('class', 'search-result__item--title');
             a.setAttribute('href', obj.item.uri);
           }
-
+          
           if ('description' === obj.matches[i].key) {
             descDiv = document.createElement('div');
             descDiv.setAttribute('class', 'search-result__item--desc');
@@ -686,7 +680,7 @@ resources.Fingerprint }}
       searchResults = document.getElementById('search-results');
       searchMenu = document.getElementById('search-menu');
       searchResults.setAttribute('class', 'dd is-active');
-
+      
       var ul = document.createElement('ul');
       ul.setAttribute('class', 'dd-content search-content');
 
@@ -726,7 +720,7 @@ resources.Fingerprint }}
           searchMenu.lastChild
         );
       }
-
+      
       searchMenu.appendChild(ul);
     }
 
@@ -751,7 +745,7 @@ resources.Fingerprint }}
           var titleDiv = document.createElement('div');
           titleDiv.innerHTML = result.item.title;
           titleDiv.setAttribute('class', 'search-result__item--title');
-
+          
           if (result.matches && result.matches.length) {
             for (var i = 0; i < result.matches.length; i++) {
               if ('title' === result.matches[i].key) {
@@ -780,7 +774,7 @@ resources.Fingerprint }}
                 }
               }
             }
-
+            
             li.appendChild(titleDiv);
             if (descDiv) {
               li.appendChild(descDiv);
@@ -825,7 +819,7 @@ resources.Fingerprint }}
       while (wrap.firstChild) {
         wrap.removeChild(wrap.firstChild)
       }
-      searchResults.appendChild(content);
+      searchResults.appendChild(content);      
     }
 
     function renderSearchHighlightResultsMobile(searchText, results) {
@@ -847,7 +841,7 @@ resources.Fingerprint }}
           var titleDiv = document.createElement('div');
           titleDiv.innerHTML = result.item.title;
           titleDiv.setAttribute('class', 'mobile-search__item--title');
-
+          
           if (result.matches && result.matches.length) {
             for (var i = 0; i < result.matches.length; i++) {
               if ('title' === result.matches[i].key) {
@@ -876,7 +870,7 @@ resources.Fingerprint }}
                 }
               }
             }
-
+            
             li.appendChild(titleDiv);
             if (descDiv) {
               li.appendChild(descDiv);
@@ -907,7 +901,7 @@ resources.Fingerprint }}
         if (region[0] === region[1]) {
           return null;
         }
-
+        
         content += '' +
           text.substring(nextUnhighlightedRegionStartingIndex, region[0]) +
           '<span class="search__highlight">' +
@@ -926,7 +920,7 @@ resources.Fingerprint }}
     var searchMobile = document.getElementById('search-mobile');
     var searchResultsContainer = document.getElementById('search-results');
 
-    searchElem ?
+    searchElem ? 
     searchElem.addEventListener('input', function(e) {
       if (!e.target.value | window.innerWidth < 770) {
         searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dd') : null;
@@ -950,7 +944,7 @@ resources.Fingerprint }}
       }) : null;
     }) : null;
 
-    searchElem ?
+    searchElem ? 
     searchElem.addEventListener('blur', function() {
       if (window.innerWidth < 770) {
         return null;
@@ -958,7 +952,7 @@ resources.Fingerprint }}
       searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dd') : null;
     }) : null;
 
-    searchElem ?
+    searchElem ? 
     searchElem.addEventListener('click', function(e) {
       if (window.innerWidth < 770) {
         return null;
@@ -991,14 +985,14 @@ resources.Fingerprint }}
     var items = null;
     var searchContainerMaxHeight = 350;
 
-    searchElem ?
+    searchElem ? 
     searchElem.addEventListener('keydown', function(e) {
       if (window.innerWidth < 770) {
         return null;
       }
 
       var items = document.querySelectorAll('#search-menu .dd-item');
-
+      
       if (e.key === 'ArrowDown') {
         if (activeIndex === null) {
           activeIndex = 0;
@@ -1024,7 +1018,7 @@ resources.Fingerprint }}
           activeIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
         }
         items[activeIndex].classList.add('is-active');
-
+        
         let overflowedPixel = items[activeIndex].offsetTop + items[activeIndex].clientHeight - searchContainerMaxHeight;
         if (overflowedPixel < 0) {
           document.querySelector(".search-content").scrollTop -= items[activeIndex].getBoundingClientRect().height;
@@ -1044,7 +1038,7 @@ resources.Fingerprint }}
       }
     }) : null;
 
-    searchMobile ?
+    searchMobile ? 
     searchMobile.addEventListener('input', function(e) {
       if (!e.target.value) {
         let wrap = document.getElementById('search-mobile-results');
@@ -1056,7 +1050,7 @@ resources.Fingerprint }}
 
       searchText = e.target.value;
       var results = fuse.search(e.target.value);
-
+      
       if (enableSearchHighlight) {
         renderSearchHighlightResultsMobile(searchText, results);
       } else {
